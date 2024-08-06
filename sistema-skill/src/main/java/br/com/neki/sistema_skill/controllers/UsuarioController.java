@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.neki.sistema_skill.DTOs.CreateUsuarioDTO;
+import br.com.neki.sistema_skill.DTOs.CriaUsuarioDTO;
 import br.com.neki.sistema_skill.DTOs.UsuarioDTO;
 import br.com.neki.sistema_skill.services.UsuarioService;
 import jakarta.validation.Valid;
@@ -25,8 +25,8 @@ public class UsuarioController {
 	UsuarioService usuarioService;
 	
 	@PostMapping
-	public ResponseEntity<CreateUsuarioDTO> save(@RequestBody @Valid CreateUsuarioDTO createUsuarioDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(createUsuarioDTO));
+	public ResponseEntity<CriaUsuarioDTO> save(@RequestBody @Valid CriaUsuarioDTO criaUsuarioDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(criaUsuarioDTO));
 	}
 	
 	@GetMapping

@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.neki.sistema_skill.DTOs.CreateUsuarioDTO;
+import br.com.neki.sistema_skill.DTOs.CriaUsuarioDTO;
 import br.com.neki.sistema_skill.DTOs.UsuarioDTO;
 import br.com.neki.sistema_skill.entities.Usuario;
 import br.com.neki.sistema_skill.exceptions.EntityNotFoundException;
@@ -27,11 +27,11 @@ public class UsuarioService {
 	
 	private final PasswordEncoder senhaCriptografada = new BCryptPasswordEncoder();
 	
-	public CreateUsuarioDTO save(CreateUsuarioDTO createUsuarioDTO) {
+	public CriaUsuarioDTO save(CriaUsuarioDTO createUsuarioDTO) {
 		Usuario usuarioSave = new Usuario(createUsuarioDTO);
 		usuarioSave.setSenha(senhaCriptografada.encode(createUsuarioDTO.getSenha()));
 		usuarioRepository.save(usuarioSave);
-		return UsuarioMapper.INSTANCE.toCreateUsuarioDTO(usuarioSave);
+		return UsuarioMapper.INSTANCE.toCriaUsuarioDTO(usuarioSave);
 	}
 	
 	public List<UsuarioDTO> findAll() {

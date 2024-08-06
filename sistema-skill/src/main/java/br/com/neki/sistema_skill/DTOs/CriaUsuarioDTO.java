@@ -1,13 +1,13 @@
 package br.com.neki.sistema_skill.DTOs;
 
-public class CreateUsuarioDTO {
+public class CriaUsuarioDTO {
 	private String login;
 	private String senha;
 	
-	public CreateUsuarioDTO() {
+	public CriaUsuarioDTO() {
 	}
 
-	public CreateUsuarioDTO(String login, String senha) {
+	public CriaUsuarioDTO(String login, String senha) {
 		this.login = login;
 		this.senha = senha;
 	}

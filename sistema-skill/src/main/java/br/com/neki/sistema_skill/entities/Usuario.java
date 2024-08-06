@@ -2,7 +2,7 @@ package br.com.neki.sistema_skill.entities;
 
 import java.util.List;
 
-import br.com.neki.sistema_skill.DTOs.CreateUsuarioDTO;
+import br.com.neki.sistema_skill.DTOs.CriaUsuarioDTO;
 import br.com.neki.sistema_skill.DTOs.UsuarioDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -51,9 +51,9 @@ public class Usuario {
 		this.userSkills = usuarioDTO.getUserSkills();
 	}
 
-	public Usuario(CreateUsuarioDTO createUsuarioDTO) {
-		this.login = createUsuarioDTO.getLogin();
-		this.senha = createUsuarioDTO.getSenha();
+	public Usuario(CriaUsuarioDTO criaUsuarioDTO) {
+		this.login = criaUsuarioDTO.getLogin();
+		this.senha = criaUsuarioDTO.getSenha();
 	}
 
 	public Integer getUsuarioId() {
