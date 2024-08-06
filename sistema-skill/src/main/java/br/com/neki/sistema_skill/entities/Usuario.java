@@ -30,7 +30,7 @@ public class Usuario {
 	@Column(name = "senha")
 	private String senha;
 
-	@OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<UserSkill> userSkills;
 
 	public Usuario() {

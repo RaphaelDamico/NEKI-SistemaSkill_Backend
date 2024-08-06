@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.neki.sistema_skill.DTOs.CriaUsuarioDTO;
@@ -22,18 +20,18 @@ public class UsuarioService {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 	
-	@Autowired
-	PasswordEncoder encoder;
-	
-	private final PasswordEncoder senhaCriptografada = new BCryptPasswordEncoder();
-	
+//	@Autowired
+//	PasswordEncoder encoder;
+//	
+//	private final PasswordEncoder senhaCriptografada = new BCryptPasswordEncoder();
+//	
 	public CriaUsuarioDTO save(CriaUsuarioDTO createUsuarioDTO) {
 		Usuario usuarioSave = new Usuario(createUsuarioDTO);
-		usuarioSave.setSenha(senhaCriptografada.encode(createUsuarioDTO.getSenha()));
+//		usuarioSave.setSenha(senhaCriptografada.encode(createUsuarioDTO.getSenha()));
 		usuarioRepository.save(usuarioSave);
 		return UsuarioMapper.INSTANCE.toCriaUsuarioDTO(usuarioSave);
 	}
-	
+	 
 	public List<UsuarioDTO> findAll() {
 		List<Usuario> usuarios = usuarioRepository.findAll();
 		if(usuarios.isEmpty())

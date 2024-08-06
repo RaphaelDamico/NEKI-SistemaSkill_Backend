@@ -1,5 +1,7 @@
 package br.com.neki.sistema_skill.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,13 +20,14 @@ public class UserSkill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userSkillId;
     
+    @JsonIgnore
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
-    private Usuario user;
+    private Usuario usuario;
     
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "skill_id")
     private Skill skill;
 
@@ -34,9 +37,9 @@ public class UserSkill {
 	public UserSkill() {
 	}
 
-	public UserSkill(Integer userSkillId, @NotNull Usuario user, @NotNull Skill skill, Integer level) {
+	public UserSkill(Integer userSkillId, @NotNull Usuario usuario, @NotNull Skill skill, Integer level) {
 		this.userSkillId = userSkillId;
-		this.user = user;
+		this.usuario = usuario;
 		this.skill = skill;
 		this.level = level;
 	}
@@ -49,12 +52,12 @@ public class UserSkill {
 		this.userSkillId = userSkillId;
 	}
 
-	public Usuario getUser() {
-		return user;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setUser(Usuario user) {
-		this.user = user;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Skill getSkill() {

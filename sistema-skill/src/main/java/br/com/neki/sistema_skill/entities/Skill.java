@@ -1,5 +1,6 @@
 package br.com.neki.sistema_skill.entities;
 
+import br.com.neki.sistema_skill.DTOs.CriaEAtribuiSkillDTO;
 import br.com.neki.sistema_skill.DTOs.CriaSkillDTO;
 import br.com.neki.sistema_skill.DTOs.SkillDTO;
 import jakarta.persistence.Column;
@@ -32,6 +33,10 @@ public class Skill {
 	
 	public Skill(CriaSkillDTO criaSkillDTO) {
 		this.nome = criaSkillDTO.getNome();
+	}
+	
+	public Skill(CriaEAtribuiSkillDTO criaEAtribuiSkillDTO) {
+		this.nome = criaEAtribuiSkillDTO.getNome();
 	}
 	
 	public Skill(SkillDTO skillDTO) {
