@@ -1,5 +1,6 @@
 package br.com.neki.sistema_skill.entities;
 
+import br.com.neki.sistema_skill.DTOs.AtribuiSkillExistenteDTO;
 import br.com.neki.sistema_skill.DTOs.CriaEAtribuiSkillDTO;
 import br.com.neki.sistema_skill.DTOs.CriaSkillDTO;
 import br.com.neki.sistema_skill.DTOs.SkillDTO;
@@ -37,6 +38,10 @@ public class Skill {
 	
 	public Skill(CriaEAtribuiSkillDTO criaEAtribuiSkillDTO) {
 		this.nome = criaEAtribuiSkillDTO.getNome();
+	}
+	
+	public Skill(AtribuiSkillExistenteDTO atribuiSkillExistenteDTO) {
+		this.skillId = atribuiSkillExistenteDTO.getSkillId();
 	}
 	
 	public Skill(SkillDTO skillDTO) {

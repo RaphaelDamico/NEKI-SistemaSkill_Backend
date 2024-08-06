@@ -33,6 +33,16 @@ public class GlobalHandleException extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 	
+	@ExceptionHandler(SkillAlreadyExistsException.class)
+	ProblemDetail handleSkillAlreadyExistsException(SkillAlreadyExistsException e) {
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
+				"Error: " + e.getLocalizedMessage());
+		
+		problemDetail.setTitle("Skill already exists");
+		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/conflict"));
+		return problemDetail;
+	}
+	
 	@ExceptionHandler(NoSuchElementException.class)
 	ProblemDetail handleNoSuchElementException(NoSuchElementException e) {
 		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
