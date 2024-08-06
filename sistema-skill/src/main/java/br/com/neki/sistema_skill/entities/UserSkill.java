@@ -2,6 +2,7 @@ package br.com.neki.sistema_skill.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.neki.sistema_skill.DTOs.UserSkillDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -42,6 +43,10 @@ public class UserSkill {
 		this.usuario = usuario;
 		this.skill = skill;
 		this.level = level;
+	}
+	
+	public UserSkill(UserSkillDTO userSkillDTO) {
+		this.level = userSkillDTO.getLevel();
 	}
 
 	public Integer getUserSkillId() {

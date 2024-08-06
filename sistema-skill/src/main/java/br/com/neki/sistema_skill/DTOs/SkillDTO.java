@@ -8,7 +8,6 @@ public class SkillDTO {
 	}
 
 	public SkillDTO(Integer skillId, String nome) {
-		super();
 		SkillId = skillId;
 		this.nome = nome;
 	}

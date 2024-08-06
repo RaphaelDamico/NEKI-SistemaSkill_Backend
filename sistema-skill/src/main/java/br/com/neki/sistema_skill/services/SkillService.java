@@ -11,12 +11,14 @@ import br.com.neki.sistema_skill.DTOs.AtribuiSkillExistenteDTO;
 import br.com.neki.sistema_skill.DTOs.CriaEAtribuiSkillDTO;
 import br.com.neki.sistema_skill.DTOs.CriaSkillDTO;
 import br.com.neki.sistema_skill.DTOs.SkillDTO;
+import br.com.neki.sistema_skill.DTOs.UserSkillDTO;
 import br.com.neki.sistema_skill.entities.Skill;
 import br.com.neki.sistema_skill.entities.UserSkill;
 import br.com.neki.sistema_skill.entities.Usuario;
 import br.com.neki.sistema_skill.exceptions.EntityNotFoundException;
 import br.com.neki.sistema_skill.exceptions.SkillAlreadyExistsException;
 import br.com.neki.sistema_skill.mappers.SkillMapper;
+import br.com.neki.sistema_skill.mappers.UserSkillMapper;
 import br.com.neki.sistema_skill.repositories.SkillRepository;
 import br.com.neki.sistema_skill.repositories.UserSkillRepository;
 import br.com.neki.sistema_skill.repositories.UsuarioRepository;
@@ -34,7 +36,7 @@ public class SkillService {
 	UserSkillRepository userSkillRepository;
 
 	public CriaSkillDTO save(CriaSkillDTO criaSkillDTO) {
-		criaSkillDTO.setNome(capitalizeFirstLetter(criaSkillDTO.getNome()));
+		criaSkillDTO.setNome(criaSkillDTO.getNome().toUpperCase());
 		if (skillRepository.findByNome(criaSkillDTO.getNome()).isPresent())
 			throw new SkillAlreadyExistsException("Skill já existe com o nome: " + criaSkillDTO.getNome());
 		Skill skillSave = new Skill(criaSkillDTO);
@@ -43,7 +45,7 @@ public class SkillService {
 	}
 
 	public CriaSkillDTO saveAndAddToUser(CriaEAtribuiSkillDTO criaEAtribuiSkillDTO) {
-		criaEAtribuiSkillDTO.setNome(capitalizeFirstLetter(criaEAtribuiSkillDTO.getNome()));
+		criaEAtribuiSkillDTO.setNome(criaEAtribuiSkillDTO.getNome().toUpperCase());
 		if (skillRepository.findByNome(criaEAtribuiSkillDTO.getNome()).isPresent())
 			throw new SkillAlreadyExistsException("Skill já existe com o nome: " + criaEAtribuiSkillDTO.getNome());
 		Skill skillSave = new Skill(criaEAtribuiSkillDTO);
@@ -73,7 +75,7 @@ public class SkillService {
 		return skillsDTO;
 	}
 
-	public UserSkill addExistingSkillToUser(AtribuiSkillExistenteDTO atribuiSkillExistenteDTO) {
+	public UserSkillDTO addExistingSkillToUser(AtribuiSkillExistenteDTO atribuiSkillExistenteDTO) {
 		Skill skill = skillRepository.findById(atribuiSkillExistenteDTO.getSkillId())
 				.orElseThrow(() -> new EntityNotFoundException(
 						"Nenhuma skill encontrada com o id: " + atribuiSkillExistenteDTO.getSkillId()));
@@ -87,15 +89,16 @@ public class SkillService {
 		usuario.getUserSkills().add(userSkill);
 		userSkillRepository.save(userSkill);
 		usuarioRepository.save(usuario);
-
-		return userSkill;
+		
+		return UserSkillMapper.INSTANCE.toUserSkillDTO(userSkill);
 	}
 
-	private String capitalizeFirstLetter(String nome) {
-		if (nome == null || nome.isEmpty()) {
-			return nome;
-		}
-		return nome.substring(0, 1).toUpperCase() + nome.substring(1).toLowerCase();
+	public UserSkillDTO deleteUserSkillById(Integer id) {
+		UserSkill userSkill = userSkillRepository.findById(id).orElseThrow(
+				() -> new EntityNotFoundException(
+						"Nenhuma associação de skill encontrada com o id: " + id));
+		userSkillRepository.deleteById(id);
+		return UserSkillMapper.INSTANCE.toUserSkillDTO(userSkill);
 	}
-
+	
 }

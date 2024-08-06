@@ -10,7 +10,6 @@ public class CriaEAtribuiSkillDTO {
 	}
 
 	public CriaEAtribuiSkillDTO(Integer usuarioId, String nome, Integer level) {
-		super();
 		this.usuarioId = usuarioId;
 		this.nome = nome;
 		this.level = level;
