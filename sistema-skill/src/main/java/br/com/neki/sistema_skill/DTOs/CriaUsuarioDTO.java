@@ -1,7 +1,16 @@
 package br.com.neki.sistema_skill.DTOs;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 public class CriaUsuarioDTO {
+	
+    @NotBlank(message = "O login deve ser preenchido")
 	private String login;
+	
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$",
+    	    message = "A senha deve ter pelo menos uma letra maiúscula, um número, um caractere especial, e entre 8 e 30 caracteres")
+    @NotBlank(message = "A senha deve ser preenchida")
 	private String senha;
 	
 	public CriaUsuarioDTO() {

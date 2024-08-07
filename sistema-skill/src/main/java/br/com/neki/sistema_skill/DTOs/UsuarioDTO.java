@@ -3,10 +3,15 @@ package br.com.neki.sistema_skill.DTOs;
 import java.util.List;
 
 import br.com.neki.sistema_skill.entities.UserSkill;
+import jakarta.validation.constraints.NotBlank;
 
 public class UsuarioDTO {
 	private Integer usuarioId;
+	
+    @NotBlank(message = "O login deve ser preenchido")
 	private String login;
+	
+    @NotBlank(message = "A senha deve ser preenchida")
 	private String senha;
 	private List<UserSkill> userSkills;
 	
@@ -14,7 +19,6 @@ public class UsuarioDTO {
 	}
 
 	public UsuarioDTO(Integer usuarioId, String login, String senha, List<UserSkill> userSkills) {
-		super();
 		this.usuarioId = usuarioId;
 		this.login = login;
 		this.senha = senha;

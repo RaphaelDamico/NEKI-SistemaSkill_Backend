@@ -20,24 +20,35 @@ public class Skill {
     @Column(name = "skill_id")
     private Integer skillId;
     
-    @NotNull
     @Column(name = "nome", unique = true)
     private String nome;
+    
+    @Column(name = "descricao")
+    private String descricao;
+    
+    @Column(name = "imagem")
+    private String imagem;
 
 	public Skill() {
 	}
 
-	public Skill(Integer skillId, @NotNull String nome) {
+	public Skill(Integer skillId, @NotNull String nome, String descricao, String imagem) {
 		this.skillId = skillId;
 		this.nome = nome;
+		this.descricao = descricao;
+		this.imagem = imagem;
 	}
-	
+
 	public Skill(CriaSkillDTO criaSkillDTO) {
 		this.nome = criaSkillDTO.getNome();
+		this.descricao = criaSkillDTO.getDescricao();
+		this.imagem = criaSkillDTO.getImagem();
 	}
 	
 	public Skill(CriaEAtribuiSkillDTO criaEAtribuiSkillDTO) {
 		this.nome = criaEAtribuiSkillDTO.getNome();
+		this.descricao = criaEAtribuiSkillDTO.getDescricao();
+		this.imagem = criaEAtribuiSkillDTO.getImagem();
 	}
 	
 	public Skill(AtribuiSkillExistenteDTO atribuiSkillExistenteDTO) {
@@ -63,6 +74,22 @@ public class Skill {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 	
 }

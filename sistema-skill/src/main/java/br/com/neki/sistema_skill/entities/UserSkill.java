@@ -22,16 +22,14 @@ public class UserSkill {
     private Integer userSkillId;
     
     @JsonIgnore
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "skill_id")
     private Skill skill;
-
+    
     @Column(name = "level")
     private Integer level;
 

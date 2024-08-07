@@ -22,11 +22,9 @@ public class Usuario {
 	@Column(name = "usuario_id")
 	private Integer usuarioId;
 
-	@NotBlank
 	@Column(name = "login", unique = true)
 	private String login;
-
-	@NotBlank
+	
 	@Column(name = "senha")
 	private String senha;
 
@@ -37,7 +35,6 @@ public class Usuario {
 	}
 
 	public Usuario(Integer usuarioId, @NotBlank String login, @NotBlank String senha, List<UserSkill> userSkills) {
-		super();
 		this.usuarioId = usuarioId;
 		this.login = login;
 		this.senha = senha;

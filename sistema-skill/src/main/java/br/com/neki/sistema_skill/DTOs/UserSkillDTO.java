@@ -2,9 +2,14 @@ package br.com.neki.sistema_skill.DTOs;
 
 import br.com.neki.sistema_skill.entities.Skill;
 import br.com.neki.sistema_skill.entities.UserSkill;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public class UserSkillDTO {
 	private Skill skill;
+	
+	@NotNull(message = "O valor não pode ser nulo")
+	@Positive(message = "O valor deve ser positivo")
 	private Integer level;
 	
 	public UserSkillDTO() {

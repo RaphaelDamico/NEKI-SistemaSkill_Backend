@@ -1,8 +1,18 @@
 package br.com.neki.sistema_skill.DTOs;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class AtribuiSkillExistenteDTO {
+	
+	@NotNull(message = "O id do usuário não pode ser nulo")
 	private Integer usuarioId;
+	
+	@NotNull(message = "O id da skill não pode ser nulo")
 	private Integer skillId;
+	
+	@NotNull(message = "O valor não pode ser nulo")
+	@Positive(message = "O valor deve ser positivo")
 	private Integer level;
 	
 	public AtribuiSkillExistenteDTO() {
