@@ -8,8 +8,8 @@ import jakarta.validation.constraints.Positive;
 public class UserSkillDTO {
 	private Skill skill;
 	
-	@NotNull(message = "O valor não pode ser nulo")
-	@Positive(message = "O valor deve ser positivo")
+	@NotNull(message = "The value cannot be null")
+	@Positive(message = "The value must be greater than 0")
 	private Integer level;
 	
 	public UserSkillDTO() {

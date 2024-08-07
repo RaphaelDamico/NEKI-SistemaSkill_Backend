@@ -1,8 +1,8 @@
 package br.com.neki.sistema_skill.entities;
 
-import br.com.neki.sistema_skill.DTOs.AtribuiSkillExistenteDTO;
-import br.com.neki.sistema_skill.DTOs.CriaEAtribuiSkillDTO;
-import br.com.neki.sistema_skill.DTOs.CriaSkillDTO;
+import br.com.neki.sistema_skill.DTOs.AssignExistingSkillDTO;
+import br.com.neki.sistema_skill.DTOs.CreateAndAssignSkillDTO;
+import br.com.neki.sistema_skill.DTOs.CreateSkillDTO;
 import br.com.neki.sistema_skill.DTOs.SkillDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,54 +10,53 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "skills")
+@Table(name = "skills_table")
 public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "skill_id")
     private Integer skillId;
     
-    @Column(name = "nome", unique = true)
-    private String nome;
+    @Column(name = "skill_name", unique = true)
+    private String skillName;
     
-    @Column(name = "descricao")
-    private String descricao;
+    @Column(name = "description")
+    private String description;
     
-    @Column(name = "imagem")
-    private String imagem;
+    @Column(name = "image")
+    private String image;
 
 	public Skill() {
 	}
 
-	public Skill(Integer skillId, @NotNull String nome, String descricao, String imagem) {
+	public Skill(Integer skillId, String skillName, String description, String image) {
 		this.skillId = skillId;
-		this.nome = nome;
-		this.descricao = descricao;
-		this.imagem = imagem;
+		this.skillName = skillName;
+		this.description = description;
+		this.image = image;
 	}
 
-	public Skill(CriaSkillDTO criaSkillDTO) {
-		this.nome = criaSkillDTO.getNome();
-		this.descricao = criaSkillDTO.getDescricao();
-		this.imagem = criaSkillDTO.getImagem();
+	public Skill(CreateSkillDTO createSkillDTO) {
+		this.skillName = createSkillDTO.getSkillName();
+		this.description = createSkillDTO.getDescription();
+		this.image = createSkillDTO.getImage();
 	}
 	
-	public Skill(CriaEAtribuiSkillDTO criaEAtribuiSkillDTO) {
-		this.nome = criaEAtribuiSkillDTO.getNome();
-		this.descricao = criaEAtribuiSkillDTO.getDescricao();
-		this.imagem = criaEAtribuiSkillDTO.getImagem();
+	public Skill(CreateAndAssignSkillDTO createAndAssignSkillDTO) {
+		this.skillName = createAndAssignSkillDTO.getSkillName();
+		this.description = createAndAssignSkillDTO.getDescription();
+		this.image = createAndAssignSkillDTO.getImage();
 	}
 	
-	public Skill(AtribuiSkillExistenteDTO atribuiSkillExistenteDTO) {
-		this.skillId = atribuiSkillExistenteDTO.getSkillId();
+	public Skill(AssignExistingSkillDTO assignExistingSkillDTO) {
+		this.skillId = assignExistingSkillDTO.getSkillId();
 	}
 	
 	public Skill(SkillDTO skillDTO) {
 		this.skillId = skillDTO.getSkillId();
-		this.nome = skillDTO.getNome();
+		this.skillName = skillDTO.getSkillName();
 	}
 
 	public Integer getSkillId() {
@@ -68,28 +67,28 @@ public class Skill {
 		this.skillId = skillId;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getSkillName() {
+		return skillName;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setSkillName(String skillName) {
+		this.skillName = skillName;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getImagem() {
-		return imagem;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
+	public void setImage(String image) {
+		this.image = image;
 	}
-	
+
 }

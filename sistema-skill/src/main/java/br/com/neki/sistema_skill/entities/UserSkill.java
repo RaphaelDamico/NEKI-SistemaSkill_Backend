@@ -12,10 +12,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "user_skills")
+@Table(name = "user_skills_table")
 public class UserSkill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +22,8 @@ public class UserSkill {
     
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @JoinColumn(name = "user_id")
+    private User user;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "skill_id")
@@ -36,9 +35,9 @@ public class UserSkill {
 	public UserSkill() {
 	}
 
-	public UserSkill(Integer userSkillId, @NotNull Usuario usuario, @NotNull Skill skill, Integer level) {
+	public UserSkill(Integer userSkillId, User user, Skill skill, Integer level) {
 		this.userSkillId = userSkillId;
-		this.usuario = usuario;
+		this.user = user;
 		this.skill = skill;
 		this.level = level;
 	}
@@ -55,12 +54,12 @@ public class UserSkill {
 		this.userSkillId = userSkillId;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Skill getSkill() {

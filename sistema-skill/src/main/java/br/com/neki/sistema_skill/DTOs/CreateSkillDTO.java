@@ -1,14 +1,10 @@
 package br.com.neki.sistema_skill.DTOs;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public class SkillDTO {
-	
-	@NotNull(message = "The skill id cannot be null")
-	private Integer skillId;
-	
+public class CreateSkillDTO {
+
     @NotBlank(message = "The name field is required")
 	private String skillName;
 	
@@ -18,23 +14,14 @@ public class SkillDTO {
     @Pattern(regexp = "^(https?|ftp)://[^\s/$.?#].[^\s]*$",message = "invalid url")
     @NotBlank(message = "The image field is required")
 	private String image;
-	
-	public SkillDTO() {
+
+	public CreateSkillDTO() {
 	}
 
-	public SkillDTO(Integer skillId, String skillName, String description, String image) {
-		this.skillId = skillId;
+	public CreateSkillDTO(String skillName, String description, String image) {
 		this.skillName = skillName;
 		this.description = description;
 		this.image = image;
-	}
-
-	public Integer getSkillId() {
-		return skillId;
-	}
-
-	public void setSkillId(Integer skillId) {
-		this.skillId = skillId;
 	}
 
 	public String getSkillName() {
@@ -60,5 +47,5 @@ public class SkillDTO {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
+
 }

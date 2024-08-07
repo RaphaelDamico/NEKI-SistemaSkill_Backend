@@ -3,12 +3,13 @@ package br.com.neki.sistema_skill.DTOs;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 
-public class SkillDTO {
+public class CreateAndAssignSkillDTO {
 	
-	@NotNull(message = "The skill id cannot be null")
-	private Integer skillId;
-	
+	@NotNull(message = "The user id cannot be null")
+	private Integer userId;
+
     @NotBlank(message = "The name field is required")
 	private String skillName;
 	
@@ -16,25 +17,30 @@ public class SkillDTO {
 	private String description;
 	
     @Pattern(regexp = "^(https?|ftp)://[^\s/$.?#].[^\s]*$",message = "invalid url")
-    @NotBlank(message = "The image field is required")
+    @NotBlank(message = "The image url field is required")
 	private String image;
 	
-	public SkillDTO() {
+    @NotNull(message = "The value cannot be null")
+	@Positive(message = "The value must be greater than 0")
+	private Integer level;
+	
+	public CreateAndAssignSkillDTO() {
 	}
 
-	public SkillDTO(Integer skillId, String skillName, String description, String image) {
-		this.skillId = skillId;
+	public CreateAndAssignSkillDTO(Integer userId, String skillName, String description, String image, Integer level) {
+		this.userId = userId;
 		this.skillName = skillName;
 		this.description = description;
 		this.image = image;
+		this.level = level;
 	}
 
-	public Integer getSkillId() {
-		return skillId;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setSkillId(Integer skillId) {
-		this.skillId = skillId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public String getSkillName() {
@@ -60,5 +66,13 @@ public class SkillDTO {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+		
 }
