@@ -83,7 +83,10 @@ public class SkillService {
 			Skill skill = skillRepository.findById(assignExistingSkillDTO.getSkillId())
 					.orElseThrow(() -> new EntityNotFoundException(
 							"No skill found with id: " + assignExistingSkillDTO.getSkillId()));
-
+			boolean alreadyExists = user.getUserSkills().stream()
+					.anyMatch(userSkill -> userSkill.getSkill().getSkillId().equals(skill.getSkillId()));
+			if(alreadyExists)
+				throw new IllegalArgumentException("User already has this skill: " + skill.getSkillName());
 			UserSkill userSkill = new UserSkill();
 			userSkill.setSkill(skill);
 			userSkill.setUser(user);

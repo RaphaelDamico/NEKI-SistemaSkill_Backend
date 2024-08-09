@@ -24,31 +24,41 @@ import io.micrometer.common.lang.Nullable;
 public class GlobalHandleException extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(EntityNotFoundException.class)
-    ProblemDetail handleEntidadeNotFoundException(EntityNotFoundException e) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
-                "Error: " + e.getLocalizedMessage());
+	ProblemDetail handleEntidadeNotFoundException(EntityNotFoundException e) {
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
+				"Error: " + e.getLocalizedMessage());
 
-        problemDetail.setTitle("Resource not found");
-        problemDetail.setType(URI.create("https://api.ecommerce.com/errors/not-found"));
-        return problemDetail;
-    }
-	
+		problemDetail.setTitle("Resource not found");
+		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/not-found"));
+		return problemDetail;
+	}
+
 	@ExceptionHandler(SkillAlreadyExistsException.class)
 	ProblemDetail handleSkillAlreadyExistsException(SkillAlreadyExistsException e) {
 		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
 				"Error: " + e.getLocalizedMessage());
-		
+
 		problemDetail.setTitle("Skill already exists");
 		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/conflict"));
 		return problemDetail;
 	}
-	
+
 	@ExceptionHandler(NoSuchElementException.class)
 	ProblemDetail handleNoSuchElementException(NoSuchElementException e) {
 		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
 		problemDetail.setTitle("Resource not Found");
 		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/not-found"));
 		return problemDetail;
+	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException exception, WebRequest request) {
+		ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
+				"Error: '" + exception.getLocalizedMessage());
+		pd.setType(URI.create("http://localhost:8080/errors/internal-server-error"));
+		pd.setTitle("Internal Error");
+		pd.setProperty("hostname", "localhost");
+		return ResponseEntity.status(500).body(pd);
 	}
 
 	@Override
