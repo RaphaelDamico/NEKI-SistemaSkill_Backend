@@ -53,12 +53,12 @@ public class GlobalHandleException extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException exception, WebRequest request) {
-		ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
+		ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST,
 				"Error: '" + exception.getLocalizedMessage());
-		pd.setType(URI.create("http://localhost:8080/errors/internal-server-error"));
-		pd.setTitle("Internal Error");
+		pd.setType(URI.create("http://localhost:8080/errors/bad-request"));
+		pd.setTitle("Bad Request");
 		pd.setProperty("hostname", "localhost");
-		return ResponseEntity.status(500).body(pd);
+		return ResponseEntity.status(400).body(pd);
 	}
 
 	@Override
