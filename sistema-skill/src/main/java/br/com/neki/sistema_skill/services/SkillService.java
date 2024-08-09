@@ -52,9 +52,8 @@ public class SkillService {
 					"A skill with this name already exists: " + createAndAssignSkillDTO.getSkillName());
 		Skill skillSave = new Skill(createAndAssignSkillDTO);
 		skillRepository.save(skillSave);
-		User user = userRepository.findById(createAndAssignSkillDTO.getUserId())
-				.orElseThrow(() -> new EntityNotFoundException(
-						"No user found with id: " + createAndAssignSkillDTO.getUserId()));
+		User user = userRepository.findById(createAndAssignSkillDTO.getUserId()).orElseThrow(
+				() -> new EntityNotFoundException("No user found with id: " + createAndAssignSkillDTO.getUserId()));
 		UserSkill userSkill = new UserSkill();
 		userSkill.setSkill(skillSave);
 		userSkill.setUser(user);
@@ -76,29 +75,31 @@ public class SkillService {
 		return skillsDTO;
 	}
 
-	public UserSkillDTO addExistingSkillToUser(AssignExistingSkillDTO assignExistingSkillDTO) {
-		Skill skill = skillRepository.findById(assignExistingSkillDTO.getSkillId())
+	public List<UserSkill> addExistingSkillToUser(List<AssignExistingSkillDTO> listAssignExistingSkillDTO) {
+		User user = userRepository.findById(listAssignExistingSkillDTO.get(0).getUserId())
 				.orElseThrow(() -> new EntityNotFoundException(
-						"No skill found with id: " + assignExistingSkillDTO.getSkillId()));
-		User user = userRepository.findById(assignExistingSkillDTO.getUserId())
-				.orElseThrow(() -> new EntityNotFoundException(
-						"No user found with id: " + assignExistingSkillDTO.getUserId()));
-		UserSkill userSkill = new UserSkill();
-		userSkill.setSkill(skill);
-		userSkill.setUser(user);
-		userSkill.setLevel(assignExistingSkillDTO.getLevel());
-		user.getUserSkills().add(userSkill);
-		userSkillRepository.save(userSkill);
-		userRepository.save(user);
-		return UserSkillMapper.INSTANCE.toUserSkillDTO(userSkill);
+						"No user found with id: " + listAssignExistingSkillDTO.get(0).getUserId()));
+		for (AssignExistingSkillDTO assignExistingSkillDTO : listAssignExistingSkillDTO) {
+			Skill skill = skillRepository.findById(assignExistingSkillDTO.getSkillId())
+					.orElseThrow(() -> new EntityNotFoundException(
+							"No skill found with id: " + assignExistingSkillDTO.getSkillId()));
+
+			UserSkill userSkill = new UserSkill();
+			userSkill.setSkill(skill);
+			userSkill.setUser(user);
+			user.getUserSkills().add(userSkill);
+			userSkillRepository.save(userSkill);
+			userRepository.save(user);
+		}
+
+		return user.getUserSkills();
 	}
 
 	public UserSkillDTO deleteUserSkillById(Integer id) {
-		UserSkill userSkill = userSkillRepository.findById(id).orElseThrow(
-				() -> new EntityNotFoundException(
-						"No skill association found with id: " + id));
+		UserSkill userSkill = userSkillRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("No skill association found with id: " + id));
 		userSkillRepository.deleteById(id);
 		return UserSkillMapper.INSTANCE.toUserSkillDTO(userSkill);
 	}
-	
+
 }

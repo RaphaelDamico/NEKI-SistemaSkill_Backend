@@ -11,7 +11,6 @@ public class AssignExistingSkillDTO {
 	@NotNull(message = "The skill id cannot be null")
 	private Integer skillId;
 	
-	@NotNull(message = "The value cannot be null")
 	@Positive(message = "The value must be greater than 0")
 	private Integer level;
 	

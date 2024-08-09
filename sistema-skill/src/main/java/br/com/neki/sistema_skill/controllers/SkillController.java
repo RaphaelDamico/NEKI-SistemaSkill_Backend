@@ -18,7 +18,7 @@ import br.com.neki.sistema_skill.DTOs.AssignExistingSkillDTO;
 import br.com.neki.sistema_skill.DTOs.CreateAndAssignSkillDTO;
 import br.com.neki.sistema_skill.DTOs.CreateSkillDTO;
 import br.com.neki.sistema_skill.DTOs.SkillDTO;
-import br.com.neki.sistema_skill.DTOs.UserSkillDTO;
+import br.com.neki.sistema_skill.entities.UserSkill;
 import br.com.neki.sistema_skill.services.SkillService;
 import jakarta.validation.Valid;
 
@@ -43,9 +43,8 @@ public class SkillController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_SIMPLE', 'ROLE_ADMIN')")
 	@PostMapping("/add-existing")
-    public ResponseEntity<UserSkillDTO> addExistingSkillToUser(@RequestBody @Valid AssignExistingSkillDTO assignExistingSkillDTO) {
-        skillService.addExistingSkillToUser(assignExistingSkillDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(skillService.addExistingSkillToUser(assignExistingSkillDTO));
+    public ResponseEntity<List<UserSkill>> addExistingSkillToUser(@RequestBody @Valid List<AssignExistingSkillDTO> listAssignExistingSkillDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(skillService.addExistingSkillToUser(listAssignExistingSkillDTO));
     }
 	
 	@PreAuthorize("hasAnyRole('ROLE_SIMPLE', 'ROLE_ADMIN')")
