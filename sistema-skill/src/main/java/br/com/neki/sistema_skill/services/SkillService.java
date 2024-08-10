@@ -7,11 +7,12 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.neki.sistema_skill.DTOs.AssignExistingSkillDTO;
-import br.com.neki.sistema_skill.DTOs.CreateAndAssignSkillDTO;
-import br.com.neki.sistema_skill.DTOs.CreateSkillDTO;
-import br.com.neki.sistema_skill.DTOs.SkillDTO;
-import br.com.neki.sistema_skill.DTOs.UserSkillDTO;
+import br.com.neki.sistema_skill.DTOs.Skill.AssignExistingSkillDTO;
+import br.com.neki.sistema_skill.DTOs.Skill.CreateAndAssignSkillDTO;
+import br.com.neki.sistema_skill.DTOs.Skill.CreateSkillDTO;
+import br.com.neki.sistema_skill.DTOs.Skill.SkillDTO;
+import br.com.neki.sistema_skill.DTOs.UserSkill.UpdateUserSkillLevelDTO;
+import br.com.neki.sistema_skill.DTOs.UserSkill.UserSkillDTO;
 import br.com.neki.sistema_skill.entities.Skill;
 import br.com.neki.sistema_skill.entities.User;
 import br.com.neki.sistema_skill.entities.UserSkill;
@@ -97,6 +98,15 @@ public class SkillService {
 
 		return user.getUserSkills();
 	}
+	
+	public UserSkillDTO updateUserSkillLevel(UpdateUserSkillLevelDTO updateUserSkillLevelDTO) {
+	    UserSkill userSkill = userSkillRepository.findById(updateUserSkillLevelDTO.getUserSkillId())
+	            .orElseThrow(() -> new EntityNotFoundException("No skill association found with id: " + updateUserSkillLevelDTO.getUserSkillId()));	    
+	    userSkill.setLevel(updateUserSkillLevelDTO.getLevel());
+	    userSkillRepository.save(userSkill);
+	    return UserSkillMapper.INSTANCE.toUserSkillDTO(userSkill);
+	}
+
 
 	public UserSkillDTO deleteUserSkillById(Integer id) {
 		UserSkill userSkill = userSkillRepository.findById(id)

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.neki.sistema_skill.DTOs.CreateUserDTO;
+import br.com.neki.sistema_skill.DTOs.User.CreateUserDTO;
 import br.com.neki.sistema_skill.records.JwtTokenRecord;
 import br.com.neki.sistema_skill.records.LoginCredentialsRecord;
 import br.com.neki.sistema_skill.services.UserService;
@@ -21,8 +21,8 @@ public class AuthController {
     UserService userService;
     
     @PostMapping("/signin")
-    public ResponseEntity<JwtTokenRecord> signin(@RequestBody LoginCredentialsRecord credenciaisLoginRecord) {
-        JwtTokenRecord jwtToken = userService.authenticateUser(credenciaisLoginRecord);
+    public ResponseEntity<JwtTokenRecord> signin(@RequestBody LoginCredentialsRecord loginCredentialsRecord) {
+        JwtTokenRecord jwtToken = userService.authenticateUser(loginCredentialsRecord);
         return ResponseEntity.status(HttpStatus.OK).body(jwtToken);
     }
     

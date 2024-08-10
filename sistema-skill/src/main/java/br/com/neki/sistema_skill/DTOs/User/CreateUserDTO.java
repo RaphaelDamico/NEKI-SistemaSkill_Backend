@@ -1,4 +1,4 @@
-package br.com.neki.sistema_skill.DTOs;
+package br.com.neki.sistema_skill.DTOs.User;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

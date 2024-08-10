@@ -3,6 +3,7 @@ package br.com.neki.sistema_skill.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -15,11 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.neki.sistema_skill.DTOs.CreateUserDTO;
-import br.com.neki.sistema_skill.DTOs.UserDetailsDTO;
+import br.com.neki.sistema_skill.DTOs.User.CreateUserDTO;
+import br.com.neki.sistema_skill.DTOs.User.UserDetailsDTO;
 import br.com.neki.sistema_skill.entities.User;
 import br.com.neki.sistema_skill.enums.AccessType;
 import br.com.neki.sistema_skill.exceptions.EntityNotFoundException;
+import br.com.neki.sistema_skill.exceptions.UsernameAlreadyExistsException;
 import br.com.neki.sistema_skill.mappers.UserMapper;
 import br.com.neki.sistema_skill.records.JwtTokenRecord;
 import br.com.neki.sistema_skill.records.LoginCredentialsRecord;
@@ -44,6 +46,9 @@ public class UserService implements UserDetailsService {
 	private final PasswordEncoder encryptedPassword  = new BCryptPasswordEncoder();
 
 	public CreateUserDTO createSimpleUser(CreateUserDTO createUserDTO) {
+		Optional<User> existingUser = userRepository.findByUsername(createUserDTO.getUsername());
+		if (existingUser.isPresent())
+	        throw new UsernameAlreadyExistsException("The username" + createUserDTO.getUsername() + " already exists.");
 		User userSave = new User(createUserDTO);
 		userSave.setPassword(encryptedPassword.encode(createUserDTO.getPassword()));
 		userSave.setAccessType(AccessType.ROLE_SIMPLE);
@@ -52,7 +57,7 @@ public class UserService implements UserDetailsService {
 	}
 
 	public JwtTokenRecord authenticateUser(LoginCredentialsRecord loginCredentialsRecord ) {
-		// Cria um objeto de autenticação com o email e a senha do usuário
+		// Cria um objeto de autenticação com o login e a senha do usuário
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 				loginCredentialsRecord.username(), loginCredentialsRecord.password());
 
@@ -63,7 +68,7 @@ public class UserService implements UserDetailsService {
 		User userDetails = (User) authentication.getPrincipal();
 
 		// Gera um token JWT para o usuário autenticado
-		return new JwtTokenRecord(jwtTokenService.generateToken(userDetails));
+		return new JwtTokenRecord(jwtTokenService.generateToken(userDetails), userDetails.getUserId());
 	}
 
 	public List<UserDetailsDTO> findAll() {

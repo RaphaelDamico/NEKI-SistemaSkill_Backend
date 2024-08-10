@@ -1,4 +1,4 @@
-package br.com.neki.sistema_skill.DTOs;
+package br.com.neki.sistema_skill.DTOs.Skill;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

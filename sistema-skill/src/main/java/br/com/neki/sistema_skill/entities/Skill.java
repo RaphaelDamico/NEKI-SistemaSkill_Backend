@@ -1,9 +1,9 @@
 package br.com.neki.sistema_skill.entities;
 
-import br.com.neki.sistema_skill.DTOs.AssignExistingSkillDTO;
-import br.com.neki.sistema_skill.DTOs.CreateAndAssignSkillDTO;
-import br.com.neki.sistema_skill.DTOs.CreateSkillDTO;
-import br.com.neki.sistema_skill.DTOs.SkillDTO;
+import br.com.neki.sistema_skill.DTOs.Skill.AssignExistingSkillDTO;
+import br.com.neki.sistema_skill.DTOs.Skill.CreateAndAssignSkillDTO;
+import br.com.neki.sistema_skill.DTOs.Skill.CreateSkillDTO;
+import br.com.neki.sistema_skill.DTOs.Skill.SkillDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

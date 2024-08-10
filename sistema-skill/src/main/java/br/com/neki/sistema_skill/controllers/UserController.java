@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.neki.sistema_skill.DTOs.CreateUserDTO;
-import br.com.neki.sistema_skill.DTOs.UserDetailsDTO;
+import br.com.neki.sistema_skill.DTOs.User.CreateUserDTO;
+import br.com.neki.sistema_skill.DTOs.User.UserDetailsDTO;
 import br.com.neki.sistema_skill.services.UserService;
 import jakarta.validation.Valid;
 

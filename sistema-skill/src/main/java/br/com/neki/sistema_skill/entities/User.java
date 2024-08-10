@@ -7,8 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.com.neki.sistema_skill.DTOs.CreateUserDTO;
-import br.com.neki.sistema_skill.DTOs.UserDetailsDTO;
+import br.com.neki.sistema_skill.DTOs.User.CreateUserDTO;
+import br.com.neki.sistema_skill.DTOs.User.UserDetailsDTO;
 import br.com.neki.sistema_skill.enums.AccessType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

@@ -28,7 +28,7 @@ public class JwtTokenService {
 		try {
 			Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
 			return JWT.create().withIssuer(ISSUER).withIssuedAt(new Date()).withExpiresAt(expirationDate())
-					.withSubject(user.getUsername()).sign(algorithm);
+					.withSubject(user.getUsername()).withClaim("userId", user.getUserId()).sign(algorithm);
 		} catch (JWTCreationException exception) {
 			throw new JWTCreationException("Error generating token", exception);
 		}
@@ -42,6 +42,19 @@ public class JwtTokenService {
 			throw new JWTVerificationException("Invalid or expired token");
 		}
 	}
+	
+	public Integer getUserIdFromToken(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
+            return JWT.require(algorithm)
+                    .withIssuer(ISSUER)
+                    .build()
+                    .verify(token)
+                    .getClaim("userId").asInt();
+        } catch (JWTVerificationException exception) {
+            throw new JWTVerificationException("Invalid or expired token");
+        }
+    }
 
 	private Instant expirationDate() {
 		return ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")).plusHours(2).toInstant();

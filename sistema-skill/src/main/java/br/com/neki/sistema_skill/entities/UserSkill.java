@@ -2,7 +2,7 @@ package br.com.neki.sistema_skill.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.neki.sistema_skill.DTOs.UserSkillDTO;
+import br.com.neki.sistema_skill.DTOs.UserSkill.UserSkillDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

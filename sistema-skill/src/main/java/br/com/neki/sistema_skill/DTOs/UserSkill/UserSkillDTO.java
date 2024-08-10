@@ -1,4 +1,4 @@
-package br.com.neki.sistema_skill.DTOs;
+package br.com.neki.sistema_skill.DTOs.UserSkill;
 
 import br.com.neki.sistema_skill.entities.Skill;
 import br.com.neki.sistema_skill.entities.UserSkill;

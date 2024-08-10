@@ -3,8 +3,8 @@ package br.com.neki.sistema_skill.mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import br.com.neki.sistema_skill.DTOs.CreateSkillDTO;
-import br.com.neki.sistema_skill.DTOs.SkillDTO;
+import br.com.neki.sistema_skill.DTOs.Skill.CreateSkillDTO;
+import br.com.neki.sistema_skill.DTOs.Skill.SkillDTO;
 import br.com.neki.sistema_skill.entities.Skill;
 
 @Mapper
