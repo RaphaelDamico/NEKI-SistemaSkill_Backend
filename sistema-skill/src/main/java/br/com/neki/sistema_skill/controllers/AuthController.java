@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.neki.sistema_skill.DTOs.User.CreateUserDTO;
 import br.com.neki.sistema_skill.records.JwtTokenRecord;
 import br.com.neki.sistema_skill.records.LoginCredentialsRecord;
 import br.com.neki.sistema_skill.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/auth")
@@ -20,15 +20,11 @@ public class AuthController {
     @Autowired
     UserService userService;
     
+    @Operation(summary = "Este método autentica um usuário cadastrado para que ele possa ter acesso restrito retornando o token e o userID.", method = "POST")
     @PostMapping("/signin")
     public ResponseEntity<JwtTokenRecord> signin(@RequestBody LoginCredentialsRecord loginCredentialsRecord) {
         JwtTokenRecord jwtToken = userService.authenticateUser(loginCredentialsRecord);
         return ResponseEntity.status(HttpStatus.OK).body(jwtToken);
-    }
-    
-    @PostMapping("/signup")
-    public ResponseEntity<CreateUserDTO> signup(@RequestBody CreateUserDTO userCreateDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createSimpleUser(userCreateDTO));
     }
 
 }

@@ -11,8 +11,8 @@ public class UpdateUserSkillLevelDTO {
 	Integer userSkillId;
 	
 	@NotNull
-	@Min(1)
-    @Max(5)
+	@Min(value = 1, message = "The value must be at least {value}.")
+	@Max(value = 5, message = "The value must be at most {value}.")
 	Integer level;
 
 	public UpdateUserSkillLevelDTO() {

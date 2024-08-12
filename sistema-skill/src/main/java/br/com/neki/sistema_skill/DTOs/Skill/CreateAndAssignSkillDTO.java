@@ -1,9 +1,10 @@
 package br.com.neki.sistema_skill.DTOs.Skill;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
 
 public class CreateAndAssignSkillDTO {
 	
@@ -21,7 +22,8 @@ public class CreateAndAssignSkillDTO {
 	private String image;
 	
     @NotNull(message = "The value cannot be null")
-	@Positive(message = "The value must be greater than 0")
+    @Min(value = 1, message = "The value must be at least {value}.")
+	@Max(value = 5, message = "The value must be at most {value}.")
 	private Integer level;
 	
 	public CreateAndAssignSkillDTO() {

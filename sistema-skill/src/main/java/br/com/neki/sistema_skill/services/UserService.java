@@ -43,12 +43,12 @@ public class UserService implements UserDetailsService {
 	@Lazy
 	private AuthenticationManager authenticationManager;
 
-	private final PasswordEncoder encryptedPassword  = new BCryptPasswordEncoder();
+	private final PasswordEncoder encryptedPassword = new BCryptPasswordEncoder();
 
 	public CreateUserDTO createSimpleUser(CreateUserDTO createUserDTO) {
 		Optional<User> existingUser = userRepository.findByUsername(createUserDTO.getUsername());
 		if (existingUser.isPresent())
-	        throw new UsernameAlreadyExistsException("The username" + createUserDTO.getUsername() + " already exists.");
+			throw new UsernameAlreadyExistsException("The username" + createUserDTO.getUsername() + " already exists.");
 		User userSave = new User(createUserDTO);
 		userSave.setPassword(encryptedPassword.encode(createUserDTO.getPassword()));
 		userSave.setAccessType(AccessType.ROLE_SIMPLE);
@@ -56,18 +56,11 @@ public class UserService implements UserDetailsService {
 		return UserMapper.INSTANCE.toCreateUserDTO(userSave);
 	}
 
-	public JwtTokenRecord authenticateUser(LoginCredentialsRecord loginCredentialsRecord ) {
-		// Cria um objeto de autenticação com o login e a senha do usuário
+	public JwtTokenRecord authenticateUser(LoginCredentialsRecord loginCredentialsRecord) {
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 				loginCredentialsRecord.username(), loginCredentialsRecord.password());
-
-		// Autentica o usuário com as credenciais fornecidas
 		Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-
-		// Obtém o objeto UserDetails do usuário autenticado
 		User userDetails = (User) authentication.getPrincipal();
-
-		// Gera um token JWT para o usuário autenticado
 		return new JwtTokenRecord(jwtTokenService.generateToken(userDetails), userDetails.getUserId());
 	}
 
@@ -87,15 +80,15 @@ public class UserService implements UserDetailsService {
 				.orElseThrow(() -> new EntityNotFoundException("No user found with id: " + id));
 		return UserMapper.INSTANCE.toUserDTO(user);
 	}
-	
+
 	@Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new EntityNotFoundException("Incorrect username or password!"));
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found!");
-        }
-        return user;
-    }
+	public User loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new EntityNotFoundException("Incorrect username or password!"));
+		if (user == null) {
+			throw new UsernameNotFoundException("User not found!");
+		}
+		return user;
+	}
 
 }

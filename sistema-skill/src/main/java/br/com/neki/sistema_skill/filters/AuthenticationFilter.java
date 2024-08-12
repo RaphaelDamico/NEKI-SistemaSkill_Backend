@@ -32,7 +32,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     private static final List<String> EXCLUDED_URLS = Arrays.asList(
             "/health-check",
             "/auth/signin",
-            "/auth/signup",
+            "/users/signup",
             "/swagger-ui/**",
             "/v3/api-docs/**"
     );

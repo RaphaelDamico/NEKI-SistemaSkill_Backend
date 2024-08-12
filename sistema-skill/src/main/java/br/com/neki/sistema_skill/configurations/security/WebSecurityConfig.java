@@ -42,7 +42,7 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/health-check","/auth/signin", "/auth/*", "/api/roles/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/health-check","/auth/signin", "/users/signup", "/auth/*", "/api/roles/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated());
 
         http.authenticationProvider(authenticationProvider());

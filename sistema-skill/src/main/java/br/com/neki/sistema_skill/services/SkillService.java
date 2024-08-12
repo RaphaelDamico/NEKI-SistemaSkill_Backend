@@ -91,6 +91,7 @@ public class SkillService {
 			UserSkill userSkill = new UserSkill();
 			userSkill.setSkill(skill);
 			userSkill.setUser(user);
+			userSkill.setLevel(1);
 			user.getUserSkills().add(userSkill);
 			userSkillRepository.save(userSkill);
 			userRepository.save(user);

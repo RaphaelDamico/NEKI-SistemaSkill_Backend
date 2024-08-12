@@ -1,7 +1,6 @@
 package br.com.neki.sistema_skill.DTOs.Skill;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 public class AssignExistingSkillDTO {
 	
@@ -11,17 +10,16 @@ public class AssignExistingSkillDTO {
 	@NotNull(message = "The skill id cannot be null")
 	private Integer skillId;
 	
-	@Positive(message = "The value must be greater than 0")
-	private Integer level;
-	
 	public AssignExistingSkillDTO() {
 	}
 
-	public AssignExistingSkillDTO(Integer userId, Integer skillId, Integer level) {
+	public AssignExistingSkillDTO(Integer userId, Integer skillId) {
+		super();
 		this.userId = userId;
 		this.skillId = skillId;
-		this.level = level;
 	}
+
+
 
 	public Integer getUserId() {
 		return userId;
@@ -37,14 +35,6 @@ public class AssignExistingSkillDTO {
 
 	public void setSkillId(Integer skillId) {
 		this.skillId = skillId;
-	}
-
-	public Integer getLevel() {
-		return level;
-	}
-
-	public void setLevel(Integer level) {
-		this.level = level;
 	}
 
 }
