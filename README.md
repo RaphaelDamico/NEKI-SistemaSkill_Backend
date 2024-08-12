@@ -87,3 +87,7 @@ Este projeto é uma API RESTful desenvolvida em Spring Boot para gerenciar usuá
 2. **Clonar o Repositório:**
    ```bash
    git clone https://github.com/RaphaelDamico/NEKI-SistemaSkill_Backend.git
+
+## Observação
+
+Ao inserir o url da imagem lembre-se de selecionar uma imagem .png para melhor funcionamento, tanto no ambiente mobile e web.
